@@ -1,6 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.benzema.tanggle_splash_screen">
-   <application
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
         android:label="tanggle_splash_screen"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
