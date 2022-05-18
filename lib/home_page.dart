@@ -58,6 +58,7 @@ class _HomePageState extends State<HomePage> {
                   image:  const NetworkImage(
                       'https://images.all-free-download.com/images/graphiclarge/beauty_of_nature_17_211513.jpg'),
                   fit: BoxFit.cover,
+                  semanticLabel: 'Palm tree',
                   // frameBuilder: (context, child, frame ,synchro){
                   //   return Container(
                   //     height: 50,
@@ -66,15 +67,16 @@ class _HomePageState extends State<HomePage> {
                   //   );
                   // },
                   loadingBuilder: (context,  child,  loadingProgress){
-                    if(loadingProgress == null) {
-                      return child;
-                    }
-                    return Center(
-                      child: CircularProgressIndicator(
-                        value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded /loadingProgress.expectedTotalBytes!
-                            : null,
-                      ),
-                    );
+                    ///There are two ways of writing this. The other method is below
+                    // if(loadingProgress == null) //{ return child;
+                      return loadingProgress == null ? child : const Center(child: SizedBox(height: 50, width: 50, child: CircularProgressIndicator(color: Colors.tealAccent,)));
+                      // }
+                    // return Center(
+                    //   child: CircularProgressIndicator(
+                    //     value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded /loadingProgress.expectedTotalBytes!
+                    //         : null,
+                    //   ),
+                    // );
                   },
             ),
                ),
@@ -101,9 +103,11 @@ class _HomePageState extends State<HomePage> {
                           loadingBuilder: (context,  child,  loadingProgress){
                             if(loadingProgress == null) return child;
                             return Center(
-                              child: CircularProgressIndicator(
-                                value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded /loadingProgress.expectedTotalBytes!
-                                    : null,
+                              child: Container(height: 20, width: 20,
+                                child: CircularProgressIndicator(color: Colors.teal,
+                                  value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded /loadingProgress.expectedTotalBytes!
+                                      : null,
+                                ),
                               ),
                             );
                           },
