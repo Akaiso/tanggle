@@ -4,26 +4,42 @@ import 'package:flutter/material.dart';
 import 'home_page.dart';
 
 
-
 class FakeSplashScreen extends StatefulWidget {
-  const FakeSplashScreen({Key? key}) : super(key: key);
+  const FakeSplashScreen({Key? key,}) : super(key: key);
 
   @override
   _FakeSplashScreenState createState() => _FakeSplashScreenState();
 }
 
-class _FakeSplashScreenState extends State<FakeSplashScreen> {
+class _FakeSplashScreenState extends State<FakeSplashScreen> with SingleTickerProviderStateMixin{
 
   splash ()async{
     await Future.delayed(const Duration(milliseconds: 3000), (){});
     Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const HomePage()));
   }
 
+   late AnimationController controller;
+  late Animation animation;
+
   @override
   void initState() {
     super.initState();
     splash();
+    controller = AnimationController(duration: Duration(seconds: 3), vsync: this, );
+    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate);
+    controller.forward();
+    controller.addListener(() {
+      setState(() {
+      });
+    });
   }
+
+  @override
+  void dispose() {
+    super.dispose();
+    controller.dispose();
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -34,31 +50,26 @@ class _FakeSplashScreenState extends State<FakeSplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              padding: const EdgeInsets.only(right: 500),
-              height: 100,
-              width: 100,
-              child: const Icon(
-                Icons.wine_bar_rounded,
-                color: Colors.teal,
-                size: 150,
-              ),
+            Icon(
+              Icons.wine_bar_rounded,
+              color: Colors.teal,
+              size: animation.value*200,
             ),
-            const SizedBox(height: 50,),
             const SizedBox(
                 height: 50,
                 width: 150,
-                child: Expanded(
-                    flex: 1,
-                    child: FittedBox(
-                        fit: BoxFit.cover,
-                        child: Text(
-                          'Tanggle',
-                          style: TextStyle(
-                              color: Colors.redAccent,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 200),
-                        ))))
+                child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Hero(
+                      tag: 'logo',
+                      child: Text(
+                        'Tanggle',
+                        style: TextStyle(
+                            color: Colors.redAccent,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 200),
+                      ),
+                    )))
           ],
         ),
       ),

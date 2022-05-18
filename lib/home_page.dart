@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,15 +7,38 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+bool isLoading = true;
+
+
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
-          'Welcome to Tanggle',
-          style: TextStyle(color: Colors.white),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children:  [
+            const Text(
+              'Welcome to   ',
+              style: TextStyle(color: Colors.white),
+            ),
+
+            Container(
+              padding: const EdgeInsets.all(5),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.all(Radius.circular(10))
+              ),
+              child: const Hero(
+                tag: 'logo',
+                child: Text(
+                  ' Tanggle',
+                  style: TextStyle(color: Colors.red,fontSize: 15),
+                ),
+              ),
+            )
+          ],
         ),
       ),
       body: Center(
@@ -27,7 +49,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(
               height: 40,
             ),
-             Container(
+             SizedBox(
                height: 300,
                width: 300,
                child: ClipRRect(
@@ -36,8 +58,17 @@ class _HomePageState extends State<HomePage> {
                   image:  const NetworkImage(
                       'https://images.all-free-download.com/images/graphiclarge/beauty_of_nature_17_211513.jpg'),
                   fit: BoxFit.cover,
+                  // frameBuilder: (context, child, frame ,synchro){
+                  //   return Container(
+                  //     height: 50,
+                  //     width: 50,
+                  //     color: Colors.black12,
+                  //   );
+                  // },
                   loadingBuilder: (context,  child,  loadingProgress){
-                    if(loadingProgress == null) return child;
+                    if(loadingProgress == null) {
+                      return child;
+                    }
                     return Center(
                       child: CircularProgressIndicator(
                         value: loadingProgress.expectedTotalBytes != null ? loadingProgress.cumulativeBytesLoaded /loadingProgress.expectedTotalBytes!
@@ -57,7 +88,7 @@ class _HomePageState extends State<HomePage> {
                 itemBuilder: (context, index){
                 return Row(
                   children: [
-                    SizedBox(width: 10,),
+                    const SizedBox(width: 10,),
                     Container(
                       height: 70,
                       width: 70,
