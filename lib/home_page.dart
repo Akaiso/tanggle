@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -35,7 +37,13 @@ List<String> cars = [
   'Wrangler Jeep on toyo tires.jpg'
 ];
 
+
+
 class _HomePageState extends State<HomePage> {
+
+  var viewedImage = 'nature.jpg';
+  String x = 'hotels';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,20 +78,21 @@ class _HomePageState extends State<HomePage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+
               const SizedBox(
                 height: 20,
               ),
-              const SizedBox(
+                SizedBox(
                 height: 300,
                 width: 300,
                 child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
                   child: Image(
-                    image: AssetImage('assets/hotels/wild_wadi.jpg'),
-                    //  image:  const NetworkImage(
+                    image: AssetImage('assets/$x/$viewedImage'),
+                  //  image:  const NetworkImage(
                     //    'https://images.all-free-download.com/images/graphiclarge/beauty_of_nature_17_211513.jpg'),
                     fit: BoxFit.cover,
-                    semanticLabel: 'cars',
+                    semanticLabel: 'image',
                     // frameBuilder: (context, child, frame ,synchro){
                     //   return Container(
                     //     height: 50,
@@ -139,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                   )
                 ],
               ),
-              SizedBox(height: 5),
+              const SizedBox(height: 5),
               Container(
                 height: 60,
                 child: ListView.builder(
@@ -154,8 +163,12 @@ class _HomePageState extends State<HomePage> {
                         ),
                         InkWell(
                           onTap: () {
-                           // print(index);
-                            setState(() {});
+                            x = 'hotels';
+                            setState(() {
+                              ///this can be written outside or inside the setState
+                              viewedImage = vacImage;
+                            });
+                            // viewedImage = vacImage;
                           },
                           child: Container(
                             height: 50,
@@ -232,7 +245,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                         InkWell(
                           onTap: () {
+                            x = 'cars';
                             setState(() {});
+                            viewedImage = carImage;
                           },
                           child: Container(
                             height: 50,
