@@ -48,6 +48,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: null,
         centerTitle: true,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
